@@ -1,1 +1,35 @@
-
+<script>
+var url = window.location.href;
+var params = url.split("?");
+var key = params.split("&")[0].split("=")[1];
+var name = params.split("&")[1].split("=")[1];
+var mail = params.split("&")[2].split("=")[1];
+var subj = params.split("&")[3].split("=")[1];
+var body = params.split("&")[4].split("=")[1];
+if(key != "Dge57nFhr547Fhju3745hfd8yR" && name == "" && mail == "" && subj == "" && body == "") return;
+function SendMail() {
+  $.ajax({
+    type: 'POST',
+    url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+    data: {
+      'key': 'YNFDoAWm5FEa5d7kANAZsQ',
+      'message': {
+        'from_email': "no-reply@mywork.com",
+        'from_name': "My Work App",
+        'to': [
+        {
+        'email': mail,
+        'name': name,
+        'type': 'to'
+        }
+        ],
+        'autotext': 'true',
+        'subject': subj,
+        'html': body
+      }
+    }
+  }).done(function(response) {
+    //success
+  });
+}
+</script>
